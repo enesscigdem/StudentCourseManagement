@@ -13,3 +13,4 @@ namespace StudentCourseManagement.Application.Interfaces
         Task DeleteCourseAsync(int id);
     }
 }
+
