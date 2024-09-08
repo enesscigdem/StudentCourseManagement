@@ -1,0 +1,17 @@
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/bin/Debug/net8.0/StudentCourseManagement.Application.deps.json
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/bin/Debug/net8.0/StudentCourseManagement.Application.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/bin/Debug/net8.0/StudentCourseManagement.Application.pdb
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/bin/Debug/net8.0/StudentCourseManagement.Domain.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/bin/Debug/net8.0/StudentCourseManagement.Domain.pdb
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/StudentCourseManagement.Application.csproj.AssemblyReference.cache
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/StudentCourseManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/StudentCourseManagement.Application.AssemblyInfoInputs.cache
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/StudentCourseManagement.Application.AssemblyInfo.cs
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/StudentCourseManagement.Application.csproj.CoreCompileInputs.cache
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/StudentC.8CAC5615.Up2Date
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/StudentCourseManagement.Application.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/refint/StudentCourseManagement.Application.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/StudentCourseManagement.Application.pdb
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/ref/StudentCourseManagement.Application.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/bin/Debug/net8.0/StudentCourseManagement.Infrastructure.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/bin/Debug/net8.0/StudentCourseManagement.Infrastructure.pdb

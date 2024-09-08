@@ -1,0 +1,30 @@
+@model EditRoleViewModel
+@{
+    ViewData["Title"] = "Rol Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container mt-5 mx-auto">
+    <div class="bg-gray-800 shadow-md rounded-lg p-6">
+        <h1 class="text-3xl font-bold text-white mb-6">@Model.RoleName Rolünü Düzenle</h1>
+
+        <form asp-action="EditRole" method="post">
+            <input type="hidden" name="RoleId" value="@Model.RoleId" />
+
+            <div class="mb-4">
+                <h3 class="text-lg text-white mb-4">Kullanıcılar</h3>
+                <ul>
+                    @for (int i = 0; i < Model.Users.Count; i++)
+                    {
+                        <li>
+                            <input type="checkbox" name="Users[@i].IsSelected" value="true" @(Model.Users[i].IsSelected ? "checked" : "") />
+                            <input type="hidden" name="Users[@i].UserId" value="@Model.Users[i].UserId" />
+                            <label class="text-white ml-2">@Model.Users[i].UserName</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Kaydet</button>
+        </form>
+    </div>
+</div>

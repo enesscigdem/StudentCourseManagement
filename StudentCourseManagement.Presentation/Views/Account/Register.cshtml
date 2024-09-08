@@ -1,0 +1,59 @@
+@model StudentCourseManagement.Presentation.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="card auth-card shadow-lg p-4">
+    <div class="card-body">
+        <h3 class="text-center mb-4">Create Your Account</h3>
+        <p class="text-center text-muted">Get started with a new account</p>
+
+        <form id="register-form" asp-action="Register" method="post" novalidate>
+            <div class="form-group mb-3">
+                <input asp-for="Email" class="form-control form-control-lg" placeholder="Email" required />
+                <span asp-validation-for="Email" class="text-danger error"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input asp-for="Password" type="password" class="form-control form-control-lg" placeholder="Password" required />
+                <span asp-validation-for="Password" class="text-danger error"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input asp-for="ConfirmPassword" type="password" class="form-control form-control-lg" placeholder="Confirm Password" required />
+                <span asp-validation-for="ConfirmPassword" class="text-danger error"></span>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">Register</button>
+            </div>
+        </form>
+        <div class="text-center mt-3">
+            <p>Already have an account? <a asp-controller="Account" asp-action="Login">Login here</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(document).ready(function() {
+        // Swal ile başarı bildirimi ve yönlendirme
+        @if(ViewBag.RegisterSuccess != null)
+        {
+            <text>
+                Swal.fire({
+                    title: 'Registration Successful!',
+                    text: 'You will be redirected to the login page shortly.',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    willClose: () => {
+                        window.location.href = '@Url.Action("Login", "Account")';
+                    }
+                });
+            </text>
+        }
+    });
+</script>

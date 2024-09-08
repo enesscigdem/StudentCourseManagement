@@ -1,0 +1,41 @@
+@model IEnumerable<StudentCourseManagement.Domain.Entities.Course>
+@{
+    ViewData["Title"] = "Kurs Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="p-6 space-y-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-white">Kurs Listesi</h1>
+        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="@Url.Action("Create", "Course")">Kurs Ekle</a>
+    </div>
+    <div class="bg-gray-800 shadow-md rounded-lg p-6">
+        <table class="min-w-full table-auto">
+            <thead>
+                <tr>
+                    <th class="py-3 px-4 text-left">Kurs ID</th>
+                    <th class="py-3 px-4 text-left">Başlık</th>
+                    <th class="py-3 px-4 text-left">Açıklama</th>
+                    <th class="py-3 px-4 text-left">Başlangıç Tarihi</th>
+                    <th class="py-3 px-4 text-left">Bitiş Tarihi</th>
+                    <th class="py-3 px-4 text-left">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var course in Model)
+                {
+                    <tr class="border-t border-gray-700">
+                        <td class="py-3 px-4">@course.CourseId</td>
+                        <td class="py-3 px-4">@course.Title</td>
+                        <td class="py-3 px-4">@course.Description</td>
+                        <td class="py-3 px-4">@course.StartDate.ToShortDateString()</td>
+                        <td class="py-3 px-4">@course.EndDate.ToShortDateString()</td>
+                        <td class="py-3 px-4">
+                            <a class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" href="@Url.Action("Edit", "Course", new { id = course.CourseId })">Düzenle</a>
+                            <a class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" href="@Url.Action("Delete", "Course", new { id = course.CourseId })">Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
