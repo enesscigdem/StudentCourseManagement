@@ -17,6 +17,9 @@
                     <th class="py-3 px-4 text-left">Açıklama</th>
                     <th class="py-3 px-4 text-left">Başlangıç Tarihi</th>
                     <th class="py-3 px-4 text-left">Bitiş Tarihi</th>
+                    <th class="py-3 px-4 text-left">Aktiflik Durumu</th>
+                    <th class="py-3 px-4 text-left">Oluşturma Tarihi</th>
+                    <th class="py-3 px-4 text-left">Güncelleme Tarihi</th>
                     <th class="py-3 px-4 text-left">İşlemler</th>
                 </tr>
             </thead>
@@ -29,6 +32,18 @@
                         <td class="py-3 px-4">@course.Description</td>
                         <td class="py-3 px-4">@course.StartDate.ToShortDateString()</td>
                         <td class="py-3 px-4">@course.EndDate.ToShortDateString()</td>
+                        <td class="py-3 px-4">
+                            @if (course.IsActive)
+                            {
+                                <i class="fas fa-check-circle text-green-600" title="Aktif"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-times-circle text-red-600" title="Pasif"></i>
+                            }
+                        </td>
+                        <td class="py-3 px-4">@course.CreatedAt.ToShortDateString()</td>
+                        <td class="py-3 px-4">@course.ModifiedAt?.ToShortDateString()</td>
                         <td class="py-3 px-4">
                             <a class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" href="@Url.Action("Edit", "Course", new { id = course.CourseId })">Düzenle</a>
                             <a class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" href="@Url.Action("Delete", "Course", new { id = course.CourseId })">Sil</a>

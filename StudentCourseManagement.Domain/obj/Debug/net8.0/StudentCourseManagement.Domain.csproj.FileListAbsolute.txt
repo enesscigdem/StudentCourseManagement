@@ -9,3 +9,4 @@
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Domain/obj/Debug/net8.0/refint/StudentCourseManagement.Domain.dll
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Domain/obj/Debug/net8.0/StudentCourseManagement.Domain.pdb
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Domain/obj/Debug/net8.0/ref/StudentCourseManagement.Domain.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Domain/obj/Debug/net8.0/StudentCourseManagement.Domain.sourcelink.json

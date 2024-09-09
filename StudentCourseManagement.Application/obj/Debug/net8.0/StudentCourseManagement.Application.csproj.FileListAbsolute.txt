@@ -15,3 +15,4 @@
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/ref/StudentCourseManagement.Application.dll
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/bin/Debug/net8.0/StudentCourseManagement.Infrastructure.dll
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/bin/Debug/net8.0/StudentCourseManagement.Infrastructure.pdb
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Application/obj/Debug/net8.0/StudentCourseManagement.Application.sourcelink.json

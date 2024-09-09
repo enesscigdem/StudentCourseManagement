@@ -23,13 +23,13 @@
 
             <div class="mb-4">
                 <label for="StartDate" class="block text-gray-300 text-sm font-bold mb-2">Başlangıç Tarihi</label>
-                <input asp-for="StartDate" type="date" class="bg-gray-700 text-white rounded-lg w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input asp-for="StartDate" type="datetime-local" class="bg-gray-700 text-white rounded-lg w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 <span asp-validation-for="StartDate" class="text-red-500 text-sm"></span>
             </div>
 
             <div class="mb-4">
                 <label for="EndDate" class="block text-gray-300 text-sm font-bold mb-2">Bitiş Tarihi</label>
-                <input asp-for="EndDate" type="date" class="bg-gray-700 text-white rounded-lg w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input asp-for="EndDate" type="datetime-local" class="bg-gray-700 text-white rounded-lg w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 <span asp-validation-for="EndDate" class="text-red-500 text-sm"></span>
             </div>
 

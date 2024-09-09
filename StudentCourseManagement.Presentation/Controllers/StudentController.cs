@@ -50,13 +50,8 @@ namespace StudentCourseManagement.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Student student)
+        public async Task<IActionResult> Edit(Student student)
         {
-            if (id != student.StudentId)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 await _studentService.UpdateStudentAsync(student);
@@ -69,6 +64,13 @@ namespace StudentCourseManagement.Presentation.Controllers
         {
             await _studentService.DeleteStudentAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Details(int id)
+        {
+            var student = await _studentService.GetStudentByIdAsync(id);
+            if (student == null) return NotFound();
+
+            return View(student);
         }
     }
 }

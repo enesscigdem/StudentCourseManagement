@@ -1,4 +1,5 @@
-@model EditRoleViewModel
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model StudentCourseManagement.Application.ViewModels.EditRoleViewModel
 @{
     ViewData["Title"] = "Rol Düzenle";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +9,8 @@
         <h1 class="text-3xl font-bold text-white mb-6">@Model.RoleName Rolünü Düzenle</h1>
 
         <form asp-action="EditRole" method="post">
-            <input type="hidden" name="RoleId" value="@Model.RoleId" />
+            <input type="hidden" name="RoleId" value="@Model.RoleId"/>
+            <input type="hidden" name="RoleName" value="@Model.RoleName"/>
 
             <div class="mb-4">
                 <h3 class="text-lg text-white mb-4">Kullanıcılar</h3>
@@ -16,8 +18,9 @@
                     @for (int i = 0; i < Model.Users.Count; i++)
                     {
                         <li>
-                            <input type="checkbox" name="Users[@i].IsSelected" value="true" @(Model.Users[i].IsSelected ? "checked" : "") />
-                            <input type="hidden" name="Users[@i].UserId" value="@Model.Users[i].UserId" />
+                            <input type="checkbox" name="Users[@i].IsSelected" value="true" @(Model.Users[i].IsSelected ? "checked" : "")/>
+                            <input type="hidden" name="Users[@i].UserId" value="@Model.Users[i].UserId"/>
+                            <input type="hidden" name="Users[@i].UserName" value="@Model.Users[i].UserName"/>
                             <label class="text-white ml-2">@Model.Users[i].UserName</label>
                         </li>
                     }

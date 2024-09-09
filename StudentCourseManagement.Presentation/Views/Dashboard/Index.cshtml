@@ -1,4 +1,4 @@
-@model DashboardViewModel
+@model StudentCourseManagement.Application.ViewModels.DashboardViewModel
 
 @{
     ViewData["Title"] = "Dashboard";
@@ -9,30 +9,65 @@
     <div id="dashboardContent">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="stat-card bg-gradient-purple">
-                <p class="text-gray-200 mb-1">Total Students</p>
+                <p class="text-gray-200 mb-1">Toplam Öğrenciler</p>
                 <p class="text-3xl font-bold">@Model.TotalStudents <i class="fas fa-user text-purple-300 text-sm ml-1"></i></p>
             </div>
             <div class="stat-card bg-gradient-green">
-                <p class="text-gray-200 mb-1">Total Courses</p>
+                <p class="text-gray-200 mb-1">Toplam Kurslar</p>
                 <p class="text-3xl font-bold">@Model.TotalCourses <i class="fas fa-book text-green-300 text-sm ml-1"></i></p>
             </div>
         </div>
 
-        <!-- Recent Activities -->
+        <!-- Son Aktiviteler -->
         <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-            <h3 class="text-xl font-semibold mb-4">Recent Activities</h3>
+            <h3 class="text-xl font-semibold mb-4">Son Öğrenci Aktiviteleri</h3>
             <ul class="space-y-4">
-                @foreach (var student in Model.RecentActivities)
+                @foreach (var student in Model.RecentStudentActivities)
                 {
                     <li class="flex items-center bg-gray-700 p-4 rounded-lg transition-all duration-300 hover:bg-gray-600">
-                        <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="User" class="rounded-full w-12 h-12 mr-4">
+                        <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Kullanıcı" class="rounded-full w-12 h-12 mr-4">
                         <div>
-                            <p class="font-semibold">@student.FirstName @student.LastName enrolled</p>
+                            <p class="font-semibold">@student.FirstName @student.LastName kaydoldu</p>
                             <p class="text-sm text-gray-400">@student.EnrollmentDate.ToString("f")</p>
                         </div>
                     </li>
                 }
             </ul>
         </div>
+
+        <!-- Son Kurs Aktiviteleri -->
+      <!-- Son Kurs Aktiviteleri -->
+      <div class="bg-gray-800 rounded-xl p-6 shadow-lg mt-8">
+          <h3 class="text-xl font-semibold mb-4">Son Kurs Aktiviteleri</h3>
+          <ul class="space-y-4">
+              @foreach (var course in Model.RecentCourseActivities)
+              {
+                  <li class="flex items-center bg-gray-700 p-4 rounded-lg transition-all duration-300 hover:bg-gray-600">
+                      <img src="https://www.freeiconspng.com/thumbs/courses-icon/courses-icon-7.png" alt="Kurs Resmi" class="rounded-full w-12 h-12 mr-4">
+                      <div>
+                          <p class="font-semibold">Kurs: @course.Title oluşturuldu</p>
+                          <p class="text-sm text-gray-400">Başlangıç: @course.StartDate.ToString("f") - Bitiş: @course.EndDate.ToString("f")</p>
+                      </div>
+                  </li>
+              }
+          </ul>
+      </div>
+
+       <!-- Son Rol Atamaları -->
+       <div class="bg-gray-800 rounded-xl p-6 shadow-lg mt-8">
+           <h3 class="text-xl font-semibold mb-4">Son Rol Atamaları</h3>
+           <ul class="space-y-4">
+               @foreach (var assignment in Model.RecentRoleAssignments)
+               {
+                   <li class="flex items-center bg-gray-700 p-4 rounded-lg transition-all duration-300 hover:bg-gray-600">
+                       <img src="https://www.veryicon.com/download/png/education-technology/data-exchange/role-management-13?s=256" alt="Kullanıcı Resmi" class="rounded-full w-12 h-12 mr-4">
+                       <div>
+                           <p class="font-semibold">Kullanıcı: @assignment.UserName - Rol: @assignment.RoleName</p>
+                       </div>
+                   </li>
+               }
+           </ul>
+       </div>
+
     </div>
 </div>

@@ -385,3 +385,4 @@
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/obj/Debug/net8.0/StudentCourseManagement.Presentation.sourcelink.json

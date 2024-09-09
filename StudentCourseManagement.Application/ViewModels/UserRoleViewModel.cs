@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 
-public class UserRoleViewModel
+namespace StudentCourseManagement.Application.ViewModels
 {
-    public string UserId { get; set; }
-    public string UserName { get; set; }
-    public bool IsSelected { get; set; }
+    public class UserRoleViewModel
+    {
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public bool IsSelected { get; set; }
+    }
 }

@@ -2,6 +2,7 @@ using StudentCourseManagement.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using StudentCourseManagement.Application.ViewModels;
 
 namespace StudentCourseManagement.Application.Interfaces
 {

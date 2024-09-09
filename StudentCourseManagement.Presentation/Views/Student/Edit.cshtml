@@ -9,26 +9,32 @@
     <!-- Student Edit Form -->
     <div class="bg-gray-800 shadow-md rounded-lg p-6">
         <form asp-action="Edit">
-            <input type="hidden" asp-for="StudentId" />
-            
+            <input type="hidden" asp-for="StudentId"/>
+
             <div class="mb-4">
                 <label for="FirstName" class="block text-gray-300 text-sm font-bold mb-2">Ad</label>
-                <input asp-for="FirstName" class="bg-gray-700 text-white rounded-lg w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input asp-for="FirstName" class="bg-gray-700 text-white rounded-lg w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 <span asp-validation-for="FirstName" class="text-red-500 text-sm"></span>
             </div>
 
             <div class="mb-4">
                 <label for="LastName" class="block text-gray-300 text-sm font-bold mb-2">Soyad</label>
-                <input asp-for="LastName" class="bg-gray-700 text-white rounded-lg w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input asp-for="LastName" class="bg-gray-700 text-white rounded-lg w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 <span asp-validation-for="LastName" class="text-red-500 text-sm"></span>
             </div>
 
             <div class="mb-4">
                 <label for="EnrollmentDate" class="block text-gray-300 text-sm font-bold mb-2">Kayıt Tarihi</label>
-                <input asp-for="EnrollmentDate" type="date" class="bg-gray-700 text-white rounded-lg w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input asp-for="EnrollmentDate" type="datetime-local" class="bg-gray-700 text-white rounded-lg w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 <span asp-validation-for="EnrollmentDate" class="text-red-500 text-sm"></span>
             </div>
-
+              <div class="mb-4">
+                   <label for="IsDeleted" class="block text-gray-300 text-sm font-bold mb-2">Aktif mi?</label>
+                   <label class="switch">
+                       <input asp-for="IsActive" type="checkbox" />
+                       <span class="slider round"></span>
+                   </label>
+               </div>
             <div class="flex justify-between items-center">
                 <a href="@Url.Action("Index", "Student")" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Geri Dön</a>
                 <button type="submit" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Değişiklikleri Kaydet</button>

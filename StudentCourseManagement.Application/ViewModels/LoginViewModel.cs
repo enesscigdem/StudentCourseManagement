@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace StudentCourseManagement.Presentation.ViewModels
+namespace StudentCourseManagement.Application.ViewModels
 {
     public class LoginViewModel
     {
@@ -12,7 +12,6 @@ namespace StudentCourseManagement.Presentation.ViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "Remember Me")]
-        public bool RememberMe { get; set; }
+        [Display(Name = "Remember Me")] public bool RememberMe { get; set; }
     }
 }

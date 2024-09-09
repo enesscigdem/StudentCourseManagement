@@ -1,36 +1,58 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using StudentCourseManagement.Infrastructure.Data;
-using StudentCourseManagement.Presentation.ViewModels;
-using System.Linq;
-using System.Threading.Tasks;
 using StudentCourseManagement.Application.Interfaces;
+using StudentCourseManagement.Application.ViewModels;
+using StudentCourseManagement.Infrastructure.Data;
 
-namespace StudentCourseManagement.Application.Services
+public class DashboardService : IDashboardService
 {
-    public class DashboardService : IDashboardService
+    private readonly ApplicationDbContext _context;
+    private readonly UserManager<IdentityUser> _userManager;
+
+    public DashboardService(ApplicationDbContext context, UserManager<IdentityUser> userManager)
     {
-        private readonly ApplicationDbContext _context;
+        _context = context;
+        _userManager = userManager;
+    }
 
-        public DashboardService(ApplicationDbContext context)
+    public async Task<DashboardViewModel> GetDashboardDataAsync()
+    {
+        var totalStudents = await _context.Students.CountAsync();
+        var totalCourses = await _context.Courses.CountAsync();
+
+        var recentStudentActivities = await _context.Students
+            .OrderByDescending(s => s.EnrollmentDate)
+            .Take(5)
+            .ToListAsync();
+
+        var recentCourseActivities = await _context.Courses
+            .OrderByDescending(c => c.StartDate)
+            .Take(5)
+            .ToListAsync();
+
+        var users = await _userManager.Users.ToListAsync();
+        var recentRoleAssignments = new List<RoleAssignmentViewModel>();
+
+        foreach (var user in users)
         {
-            _context = context;
-        }
-
-        public async Task<DashboardViewModel> GetDashboardDataAsync()
-        {
-            var totalStudents = await _context.Students.CountAsync();
-            var totalCourses = await _context.Courses.CountAsync();
-            var recentActivities = await _context.Students
-                .OrderByDescending(s => s.EnrollmentDate)
-                .Take(5)
-                .ToListAsync();
-
-            return new DashboardViewModel
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles.Any())
             {
-                TotalStudents = totalStudents,
-                TotalCourses = totalCourses,
-                RecentActivities = recentActivities
-            };
+                recentRoleAssignments.Add(new RoleAssignmentViewModel
+                {
+                    UserName = user.UserName,
+                    RoleName = roles.First()
+                });
+            }
         }
+
+        return new DashboardViewModel
+        {
+            TotalStudents = totalStudents,
+            TotalCourses = totalCourses,
+            RecentStudentActivities = recentStudentActivities,
+            RecentCourseActivities = recentCourseActivities,
+            RecentRoleAssignments = recentRoleAssignments
+        };
     }
 }

@@ -1,9 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-public class CreateRoleViewModel
+namespace StudentCourseManagement.Application.ViewModels
 {
-    [Required(ErrorMessage = "Rol ismi gereklidir.")]
-    [Display(Name = "Rol Adı")]
-    public string RoleName { get; set; }
+    public class CreateRoleViewModel
+    {
+        [Required(ErrorMessage = "Rol ismi gereklidir.")]
+        [Display(Name = "Rol Adı")]
+        public string RoleName { get; set; }
+    }
 }

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentCourseManagement.Domain.Entities
 {
-    public class Student
+    public class Student : IAuditEntity
     {
         public int StudentId { get; set; }
 
@@ -17,6 +17,10 @@ namespace StudentCourseManagement.Domain.Entities
 
         // İlişkili Kurslar
         public ICollection<Course>? Courses { get; set; }
-    }
 
+        // Audit Properties
+        public DateTime CreatedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; }
+        public bool IsActive { get; set; }
+    }
 }

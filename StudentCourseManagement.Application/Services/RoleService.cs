@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using StudentCourseManagement.Application.Interfaces;
-using StudentCourseManagement.Presentation.ViewModels;
+using StudentCourseManagement.Application.ViewModels;
 
 namespace StudentCourseManagement.Application.Services
 {
@@ -21,14 +21,34 @@ namespace StudentCourseManagement.Application.Services
 
         public async Task<List<SettingsViewModel>> GetRolesAsync()
         {
-            return await Task.Run(() => _roleManager.Roles
-                .Select(r => new SettingsViewModel
+            var roles = await _roleManager.Roles.ToListAsync(); // Rolleri al
+            var roleViewModels = new List<SettingsViewModel>();
+
+            foreach (var role in roles)
+            {
+                var users = await _userManager.Users.ToListAsync(); // Tüm kullanıcıları al
+                var userCount = 0;
+
+                foreach (var user in users)
                 {
-                    RoleId = r.Id,
-                    RoleName = r.Name,
-                    UserCount = _userManager.Users.Count(u => _userManager.IsInRoleAsync(u, r.Name).Result)
-                }).ToList());
+                    // Her kullanıcı için rol kontrolü yap
+                    if (await _userManager.IsInRoleAsync(user, role.Name))
+                    {
+                        userCount++;
+                    }
+                }
+
+                roleViewModels.Add(new SettingsViewModel
+                {
+                    RoleId = role.Id,
+                    RoleName = role.Name,
+                    UserCount = userCount
+                });
+            }
+
+            return roleViewModels;
         }
+
 
         public async Task<CreateRoleViewModel> GetRoleByIdAsync(string roleId)
         {
@@ -69,12 +89,20 @@ namespace StudentCourseManagement.Application.Services
             if (role == null) return new List<UserRoleViewModel>();
 
             var users = await _userManager.Users.ToListAsync();
-            return users.Select(u => new UserRoleViewModel
+            var userRoleViewModels = new List<UserRoleViewModel>();
+
+            foreach (var user in users)
             {
-                UserId = u.Id,
-                UserName = u.UserName,
-                IsSelected = _userManager.IsInRoleAsync(u, role.Name).Result
-            }).ToList();
+                var isSelected = await _userManager.IsInRoleAsync(user, role.Name);
+                userRoleViewModels.Add(new UserRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IsSelected = isSelected
+                });
+            }
+
+            return userRoleViewModels;
         }
 
         public async Task UpdateUsersInRoleAsync(string roleId, List<UserRoleViewModel> users)
@@ -87,15 +115,18 @@ namespace StudentCourseManagement.Application.Services
                 var identityUser = await _userManager.FindByIdAsync(user.UserId);
                 if (identityUser == null) continue;
 
+                // Eğer kullanıcı seçildiyse ve bu rolde değilse, rol ekle
                 if (user.IsSelected && !await _userManager.IsInRoleAsync(identityUser, role.Name))
                 {
                     await _userManager.AddToRoleAsync(identityUser, role.Name);
                 }
+                // Eğer kullanıcı seçilmediyse ve bu rolde ise, rolü çıkar
                 else if (!user.IsSelected && await _userManager.IsInRoleAsync(identityUser, role.Name))
                 {
                     await _userManager.RemoveFromRoleAsync(identityUser, role.Name);
                 }
             }
         }
+
     }
 }

@@ -15,3 +15,4 @@
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Infrastructure/obj/Debug/net8.0/StudentCourseManagement.Infrastructure.pdb
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Infrastructure/obj/Debug/net8.0/StudentCourseManagement.Infrastructure.genruntimeconfig.cache
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Infrastructure/obj/Debug/net8.0/ref/StudentCourseManagement.Infrastructure.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Infrastructure/obj/Debug/net8.0/StudentCourseManagement.Infrastructure.sourcelink.json

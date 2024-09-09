@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using StudentCourseManagement.Presentation.ViewModels;
+using StudentCourseManagement.Application.ViewModels;
 
 namespace StudentCourseManagement.Presentation.Controllers
 {

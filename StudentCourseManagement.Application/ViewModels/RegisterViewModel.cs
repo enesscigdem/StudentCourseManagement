@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace StudentCourseManagement.Presentation.ViewModels
+namespace StudentCourseManagement.Application.ViewModels
 {
     public class RegisterViewModel
     {
@@ -11,8 +11,9 @@ namespace StudentCourseManagement.Presentation.ViewModels
         [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
         [StringLength(100, ErrorMessage = "The password must be at least {2} characters long.", MinimumLength = 6)]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$", 
-            ErrorMessage = "The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$",
+            ErrorMessage =
+                "The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Please confirm your password.")]
