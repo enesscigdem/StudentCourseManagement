@@ -6,10 +6,8 @@ using StudentCourseManagement.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// MVC View'ları eklemek için
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-// Identity veya diğer servisler
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -17,15 +15,12 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-// Redis'i ekleyin
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetSection("Redis:ConnectionString").Value;
     options.InstanceName = "StudentCourseManagement_";
 });
 
-
-// Addscoped servisleri
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
@@ -45,7 +40,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// MVC route yapılandırması
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");
