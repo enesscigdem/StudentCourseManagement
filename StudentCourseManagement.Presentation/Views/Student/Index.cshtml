@@ -47,7 +47,7 @@
                     <td class="py-3 px-6 text-center">
                         <a class="bg-blue-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded ml-2" href="@Url.Action("Details", "Student", new { id = student.StudentId })">Detaylar</a>
 
-                        <a class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded ml-2" href="@Url.Action("AssignCourse", "StudentCourse", new { studentId = student.StudentId })">Ders Ata</a>
+                        <a class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded ml-2" href="@Url.Action("AssignCourse", "StudentCourse", new { id = student.StudentId })">Ders Ata</a>
 
                         <a class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded" href="@Url.Action("Edit", "Student", new { id = student.StudentId })">Düzenle</a>
                         <a class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded ml-2" href="@Url.Action("Delete", "Student", new { id = student.StudentId })">Sil</a>

@@ -1,0 +1,37 @@
+@model StudentCourseManagement.Application.ViewModels.AssignCourseViewModel
+
+@{
+    ViewData["Title"] = "Ders Atama";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="p-6 space-y-8">
+    <h1 class="text-3xl font-bold text-white mb-4">Öğrenciye Ders Ata: @Model.Student.FirstName @Model.Student.LastName</h1>
+
+    <form asp-action="AssignCourse" method="post">
+        <input type="hidden" asp-for="Student.StudentId" />
+
+        <div class="mb-4">
+            <label for="courses" class="block text-gray-300 text-sm font-bold mb-2">Dersler</label>
+            @if (Model.AvailableCourses != null && Model.AvailableCourses.Any())
+            {
+                <select asp-for="SelectedCourseIds" class="bg-gray-700 text-white rounded-lg w-full py-2 px-4 focus:outline-none" multiple="multiple">
+                    @foreach (var course in Model.AvailableCourses)
+                    {
+                        <option value="@course.CourseId">@course.Title</option>
+                    }
+                </select>
+            }
+            else
+            {
+                <p class="text-gray-500 text-sm">Mevcut ders bulunmuyor.</p>
+            }
+            <span class="text-gray-500 text-sm">Birden fazla ders seçmek için CTRL veya CMD tuşuna basılı tutun.</span>
+        </div>
+
+        <div class="flex justify-between items-center">
+            <a href="@Url.Action("Details", "Student", new { id = Model.Student.StudentId })" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Geri Dön</a>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Dersleri Ata</button>
+        </div>
+    </form>
+</div>

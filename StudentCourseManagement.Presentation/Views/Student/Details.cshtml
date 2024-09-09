@@ -1,0 +1,32 @@
+@model StudentCourseManagement.Domain.Entities.Student
+
+@{
+    ViewData["Title"] = "Öğrenciye Atanmış Dersler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mx-auto px-4 py-8">
+    <div class="bg-gray-900 text-white rounded-lg shadow-lg p-6">
+        <h1 class="text-4xl font-extrabold mb-6">@Model.FirstName @Model.LastName - Öğrenci Detayları</h1>
+
+        <div class="bg-gray-800 shadow-md rounded-lg p-6">
+            <h2 class="text-2xl font-semibold mb-4">Kayıtlı Dersler</h2>
+            <ul class="list-disc pl-6 space-y-4">
+                @if (Model.StudentCourses != null && Model.StudentCourses.Any())
+                {
+                    @foreach (var studentCourse in Model.StudentCourses)
+                    {
+                        <li class="flex items-center justify-between p-3 bg-gray-700 rounded-md">
+                            <span class="font-medium">@studentCourse.Course.Title</span>
+                            <span class="text-gray-400 text-sm">Başlangıç: @studentCourse.Course.StartDate.ToShortDateString(), Bitiş: @studentCourse.Course.EndDate.ToShortDateString()</span>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="text-gray-500">Bu öğrenciye atanmış ders bulunmamaktadır.</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

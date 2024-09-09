@@ -78,8 +78,6 @@ namespace StudentCourseManagement.Presentation.Controllers
         }
 
 
-        // Logout işlemi
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

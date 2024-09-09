@@ -19,8 +19,13 @@ public class StudentService : IStudentService
 
     public async Task<Student> GetStudentByIdAsync(int id)
     {
-        return await _context.Students.Where(x => x.StudentId == id).FirstOrDefaultAsync();
+        return await _context.Students
+            .Include(s => s.StudentCourses)
+            .ThenInclude(sc => sc.Course) // İlişkili kursları da dahil edin
+            .Where(x => x.StudentId == id)
+            .FirstOrDefaultAsync();
     }
+
 
     public async Task AddStudentAsync(Student student)
     {
@@ -50,20 +55,25 @@ public class StudentService : IStudentService
     }
     public async Task AssignCoursesToStudentAsync(int studentId, List<int> courseIds)
     {
-        var student = await _context.Students.Include(s => s.Courses).FirstOrDefaultAsync(s => s.StudentId == studentId);
-        if (student != null)
+        var existingCourseIds = _context.StudentCourses
+            .Where(sc => sc.StudentsStudentId == studentId)
+            .Select(sc => sc.CoursesCourseId)
+            .ToHashSet(); // Set olarak almak daha hızlı kontrol sağlar
+
+        foreach (var courseId in courseIds)
         {
-            student.Courses.Clear();
-            foreach (var courseId in courseIds)
+            if (!existingCourseIds.Contains(courseId))
             {
-                var course = await _context.Courses.FindAsync(courseId);
-                if (course != null)
+                await _context.StudentCourses.AddAsync(new StudentCourse
                 {
-                    student.Courses.Add(course);
-                }
+                    StudentsStudentId = studentId,
+                    CoursesCourseId = courseId
+                });
             }
-            await _context.SaveChangesAsync();
         }
+        await _context.SaveChangesAsync();
     }
+
+
 
 }

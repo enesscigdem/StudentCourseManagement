@@ -16,7 +16,7 @@ namespace StudentCourseManagement.Domain.Entities
         public DateTime EnrollmentDate { get; set; }
 
         // İlişkili Kurslar
-        public ICollection<Course>? Courses { get; set; }
+        public ICollection<StudentCourse>? StudentCourses { get; set; }
 
         // Audit Properties
         public DateTime CreatedAt { get; set; }

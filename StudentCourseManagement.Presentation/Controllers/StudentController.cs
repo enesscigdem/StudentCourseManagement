@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using StudentCourseManagement.Application.Services;
 using StudentCourseManagement.Domain.Entities;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using StudentCourseManagement.Application.Interfaces;
 
 namespace StudentCourseManagement.Presentation.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private readonly IStudentService _studentService;

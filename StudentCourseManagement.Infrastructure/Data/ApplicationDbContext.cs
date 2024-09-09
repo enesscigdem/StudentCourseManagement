@@ -16,6 +16,7 @@ namespace StudentCourseManagement.Infrastructure.Data
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<StudentCourse> StudentCourses { get; set; }
 
         // Audit işlemleri için SaveChanges metodunu override ediyoruz
        public override int SaveChanges()
@@ -63,15 +64,23 @@ namespace StudentCourseManagement.Infrastructure.Data
        }
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder); // Identity yapılandırmalarını yap
-            
-            // İlişkileri tanımla
-            modelBuilder.Entity<Student>()
-                .HasMany(s => s.Courses)
-                .WithMany(c => c.Students)
-                .UsingEntity(j => j.ToTable("StudentCourses"));
-        }
+       protected override void OnModelCreating(ModelBuilder modelBuilder)
+       {
+           base.OnModelCreating(modelBuilder);
+
+           modelBuilder.Entity<StudentCourse>()
+               .HasKey(sc => new { sc.CoursesCourseId, sc.StudentsStudentId });
+
+           modelBuilder.Entity<StudentCourse>()
+               .HasOne(sc => sc.Student)
+               .WithMany(s => s.StudentCourses)
+               .HasForeignKey(sc => sc.StudentsStudentId);
+
+           modelBuilder.Entity<StudentCourse>()
+               .HasOne(sc => sc.Course)
+               .WithMany(c => c.StudentCourses)
+               .HasForeignKey(sc => sc.CoursesCourseId);
+       }
+
     }
 }

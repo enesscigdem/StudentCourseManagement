@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentCourseManagement.Application.Services;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using StudentCourseManagement.Application.Interfaces;
 using StudentCourseManagement.Application.ViewModels;
 
 namespace StudentCourseManagement.Presentation.Controllers
 {
+    [Authorize]
     public class SettingsController : Controller
     {
         private readonly IRoleService _roleService;
