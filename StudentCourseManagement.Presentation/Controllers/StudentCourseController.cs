@@ -28,15 +28,13 @@ namespace StudentCourseManagement.Presentation.Controllers
                 return NotFound();
             }
 
-            // Tüm dersleri almak için uygun bir servis metodunu kullanın
             var availableCourses = await _courseService.GetAllCoursesAsync();
 
-            // Modeli oluşturun
             var model = new AssignCourseViewModel
             {
                 Student = student,
-                AvailableCourses = availableCourses, // Burada AvailableCourses null olmamalı
-                SelectedCourseIds = new List<int>() // Boş bir liste başlatabilirsiniz
+                AvailableCourses = availableCourses,
+                SelectedCourseIds = new List<int>()
             };
 
             return View(model);

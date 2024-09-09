@@ -18,7 +18,6 @@ namespace StudentCourseManagement.Infrastructure.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
 
-        // Audit işlemleri için SaveChanges metodunu override ediyoruz
        public override int SaveChanges()
        {
            foreach (var entry in ChangeTracker.Entries<IAuditEntity>())
@@ -80,6 +79,32 @@ namespace StudentCourseManagement.Infrastructure.Data
                .HasOne(sc => sc.Course)
                .WithMany(c => c.StudentCourses)
                .HasForeignKey(sc => sc.CoursesCourseId);
+
+           modelBuilder.Entity<IdentityRole>().HasData(
+               new IdentityRole { Id = "1", Name = "Admin", NormalizedName = "ADMIN" },
+               new IdentityRole { Id = "2", Name = "Öğrenci", NormalizedName = "ÖĞRENCİ" });
+
+           var adminUser = new IdentityUser
+           {
+               Id = "1",
+               UserName = "admin@itb.com",
+               NormalizedUserName = "ADMIN@ITB.COM",
+               Email = "admin@itb.com",
+               NormalizedEmail = "ADMIN@ITB.COM",
+               EmailConfirmed = true,
+               SecurityStamp = Guid.NewGuid().ToString()
+           };
+
+           var passwordHasher = new PasswordHasher<IdentityUser>();
+           adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, "ITB2024!!");
+
+           modelBuilder.Entity<IdentityUser>().HasData(adminUser);
+
+           modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+           {
+               UserId = "1",
+               RoleId = "1"
+           });
        }
 
     }

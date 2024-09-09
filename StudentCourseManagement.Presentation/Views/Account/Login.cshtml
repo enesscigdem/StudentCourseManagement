@@ -21,21 +21,31 @@
                 <span asp-validation-for="Password" class="text-danger error"></span>
             </div>
             <div class="form-group form-check mb-3">
-                <input asp-for="RememberMe" class="form-check-input" />
+                <input asp-for="RememberMe" class="form-check-input"/>
                 <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
             </div>
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary btn-lg">Login</button>
             </div>
         </form>
-                <div class="text-center mt-3">
-                    <p>Don't have an account? <a asp-controller="Account" asp-action="Register">Register here</a></p>
-                </div>
-        @if(ViewBag.LoginError != null)
+        <div class="text-center mt-3">
+            <p>Don't have an account? <a asp-controller="Account" asp-action="Register">Register here</a></p>
+        </div>
+        @if (!ViewData.ModelState.IsValid)
         {
-            <div class="text-danger mt-3 text-center">
-                <p>@ViewBag.LoginError</p>
+            <div class="card bg-danger text-white shadow-sm mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Hata</h5>
+                    <ul class="mb-0">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
             </div>
         }
+
+
     </div>
 </div>

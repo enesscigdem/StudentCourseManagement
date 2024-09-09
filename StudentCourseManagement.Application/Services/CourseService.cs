@@ -27,7 +27,7 @@ public class CourseService : ICourseService
         course.StartDate = DateTime.SpecifyKind(course.StartDate, DateTimeKind.Utc);
         course.EndDate = DateTime.SpecifyKind(course.EndDate, DateTimeKind.Utc);
         course.CreatedAt = DateTime.UtcNow;
-        course.IsActive = true; // Yeni eklenen
+        course.IsActive = true;
         await _context.Courses.AddAsync(course);
         await _context.SaveChangesAsync();
     }
@@ -46,7 +46,7 @@ public class CourseService : ICourseService
         var course = await GetCourseByIdAsync(id);
         if (course != null)
         {
-            course.IsActive = false; // Soft-delete işlemi
+            course.IsActive = false;
             await _context.SaveChangesAsync();
         }
     }

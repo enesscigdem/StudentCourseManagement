@@ -12,6 +12,7 @@ namespace StudentCourseManagement.Domain.Entities
 
         [ForeignKey(nameof(StudentsStudentId))]
         public Student Student { get; set; }
+        
         // Audit Properties
         public DateTime CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }

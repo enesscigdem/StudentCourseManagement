@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using StudentCourseManagement.Application.Interfaces;
 using StudentCourseManagement.Application.ViewModels;
 
 namespace StudentCourseManagement.Presentation.Controllers
@@ -9,21 +10,21 @@ namespace StudentCourseManagement.Presentation.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IStudentService _studentService;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IStudentService studentService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _studentService = studentService;
         }
 
-        // Register GET request
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
-        // Register POST request
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -31,12 +32,12 @@ namespace StudentCourseManagement.Presentation.Controllers
             {
                 var user = new IdentityUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
-
+            
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    ViewBag.RegisterSuccess = true; // Kayıt başarılı olduğunda
-                    return View(); // Bildirim sonrası login sayfasına yönlendirilecek
+                    ViewBag.RegisterSuccess = true;
+                    return View();
                 }
 
                 foreach (var error in result.Errors)
@@ -45,18 +46,16 @@ namespace StudentCourseManagement.Presentation.Controllers
                 }
             }
 
-            return View(model); // Hataları göstermek için formu geri döner
+            return View(model);
         }
 
 
-        // Login GET request
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        // Login POST request
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -66,18 +65,31 @@ namespace StudentCourseManagement.Presentation.Controllers
 
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    var roles = await _userManager.GetRolesAsync(user);
+
+                    if (!roles.Any())
+                    {
+                        await _signInManager.SignOutAsync();
+                        ModelState.AddModelError(string.Empty, "Rolünüz tanımlanmamıştır. Lütfen admin ile iletişime geçin.");
+                        return View(model);
+                    }
+
+                    if (roles.Contains("Öğrenci"))
+                    {
+                        return RedirectToAction("MyCourses", "Student");
+                    }
+
                     return RedirectToAction("Index", "Dashboard");
                 }
                 else
                 {
-                    ViewBag.LoginError = "Incorrect email or password.";
+                    ModelState.AddModelError(string.Empty, "Email veya şifre hatalı.");
                 }
             }
 
-            return View(model); // Hata mesajlarını form altında göstermek için
+            return View(model);
         }
-
-
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

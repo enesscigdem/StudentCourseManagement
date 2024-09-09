@@ -46,6 +46,20 @@ namespace StudentCourseManagement.Infrastructure.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "Öğrenci",
+                            NormalizedName = "ÖĞRENCİ"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -135,6 +149,24 @@ namespace StudentCourseManagement.Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "087e06eb-5485-43bc-913e-db8daf8a9208",
+                            Email = "admin@itb.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ITB.COM",
+                            NormalizedUserName = "ADMIN@ITB.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEN6QDjMJyEXfVbi1tJK1MFBohbAZgf8gaWEG1zLPFxtQJBwEDNxcTl3fKijp+hbwag==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "dedcf8ac-00b4-496b-a111-58bd464c42cd",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@itb.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -197,6 +229,13 @@ namespace StudentCourseManagement.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -265,6 +304,10 @@ namespace StudentCourseManagement.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("EnrollmentDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -281,6 +324,11 @@ namespace StudentCourseManagement.Infrastructure.Migrations
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("StudentId");
 

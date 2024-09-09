@@ -9,7 +9,6 @@ namespace StudentCourseManagement.Infrastructure.Data
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {
-            // appsettings.json dosyasının bulunduğu yolu belirtin
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../StudentCourseManagement.Presentation"))
                 .AddJsonFile("appsettings.json")

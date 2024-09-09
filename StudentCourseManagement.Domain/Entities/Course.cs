@@ -8,7 +8,6 @@ namespace StudentCourseManagement.Domain.Entities
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        // Kursa kayıtlı öğrenciler
         public ICollection<StudentCourse>? StudentCourses { get; set; }
 
         // Audit Properties

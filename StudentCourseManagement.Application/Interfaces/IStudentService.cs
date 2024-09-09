@@ -12,5 +12,6 @@ namespace StudentCourseManagement.Application.Interfaces
         Task UpdateStudentAsync(Student student);
         Task DeleteStudentAsync(int id);
         Task AssignCoursesToStudentAsync(int studentId, List<int> courseIds);
+        Task<Student> MyCoursesAsync(string userEmail);
     }
 }

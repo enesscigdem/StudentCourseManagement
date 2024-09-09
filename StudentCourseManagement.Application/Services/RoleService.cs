@@ -21,17 +21,16 @@ namespace StudentCourseManagement.Application.Services
 
         public async Task<List<SettingsViewModel>> GetRolesAsync()
         {
-            var roles = await _roleManager.Roles.ToListAsync(); // Rolleri al
+            var roles = await _roleManager.Roles.ToListAsync();
             var roleViewModels = new List<SettingsViewModel>();
 
             foreach (var role in roles)
             {
-                var users = await _userManager.Users.ToListAsync(); // Tüm kullanıcıları al
+                var users = await _userManager.Users.ToListAsync();
                 var userCount = 0;
 
                 foreach (var user in users)
                 {
-                    // Her kullanıcı için rol kontrolü yap
                     if (await _userManager.IsInRoleAsync(user, role.Name))
                     {
                         userCount++;
@@ -115,12 +114,10 @@ namespace StudentCourseManagement.Application.Services
                 var identityUser = await _userManager.FindByIdAsync(user.UserId);
                 if (identityUser == null) continue;
 
-                // Eğer kullanıcı seçildiyse ve bu rolde değilse, rol ekle
                 if (user.IsSelected && !await _userManager.IsInRoleAsync(identityUser, role.Name))
                 {
                     await _userManager.AddToRoleAsync(identityUser, role.Name);
                 }
-                // Eğer kullanıcı seçilmediyse ve bu rolde ise, rolü çıkar
                 else if (!user.IsSelected && await _userManager.IsInRoleAsync(identityUser, role.Name))
                 {
                     await _userManager.RemoveFromRoleAsync(identityUser, role.Name);

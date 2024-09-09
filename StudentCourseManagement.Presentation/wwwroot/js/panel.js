@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 const targetPage = item.querySelector('a').getAttribute('data-page');
 
-                // Menü başlıklarını projeye göre güncelle
                 const pages = {
                     dashboard: "Dashboard",
                     messages: "Mesajlar",
@@ -24,15 +23,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     files: "Dosyalar",
                     users: "Kullanıcılar",
                     settings: "Ayarlar",
-                    courses: "Dersler", // Projeye uygun modül ekleme
-                    reports: "Raporlar"  // Proje ihtiyaçlarına göre raporlama ekleme
+                    courses: "Dersler",
+                    reports: "Raporlar"
                 };
 
-                // Aktif menü stilini güncelle
                 menuItems.forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
 
-                // İçerikleri güncelle
                 contentSections.forEach(section => {
                     section.classList.add('hidden');
                     if (section.id === `${targetPage}Content`) {
@@ -60,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     notificationBtn.addEventListener('click', () => {
         gsap.to(notificationBtn, {duration: 0.1, scale: 1.1, yoyo: true, repeat: 1});
-        alert('Notifications feature coming soon!');
     });
 
     const commonChartOptions = {

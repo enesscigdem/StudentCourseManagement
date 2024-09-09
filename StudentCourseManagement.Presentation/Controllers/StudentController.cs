@@ -74,5 +74,18 @@ namespace StudentCourseManagement.Presentation.Controllers
 
             return View(student);
         }
+        public async Task<IActionResult> MyCourses()
+        {
+            var userEmail = User.Identity.Name;
+            var student = await _studentService.MyCoursesAsync(userEmail);
+    
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Details", new { id = student.StudentId });
+        }
+
     }
 }

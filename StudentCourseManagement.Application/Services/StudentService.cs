@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudentCourseManagement.Application.Interfaces;
 using StudentCourseManagement.Domain.Entities;
@@ -6,10 +7,15 @@ using StudentCourseManagement.Infrastructure.Data;
 public class StudentService : IStudentService
 {
     private readonly ApplicationDbContext _context;
+    private readonly UserManager<IdentityUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public StudentService(ApplicationDbContext context)
+    public StudentService(ApplicationDbContext context, UserManager<IdentityUser> userManager,
+        RoleManager<IdentityRole> roleManager)
     {
         _context = context;
+        _userManager = userManager;
+        _roleManager = roleManager;
     }
 
     public async Task<List<Student>> GetAllStudentsAsync()
@@ -21,7 +27,7 @@ public class StudentService : IStudentService
     {
         return await _context.Students
             .Include(s => s.StudentCourses)
-            .ThenInclude(sc => sc.Course) // İlişkili kursları da dahil edin
+            .ThenInclude(sc => sc.Course)
             .Where(x => x.StudentId == id)
             .FirstOrDefaultAsync();
     }
@@ -31,7 +37,9 @@ public class StudentService : IStudentService
     {
         student.EnrollmentDate = DateTime.SpecifyKind(student.EnrollmentDate, DateTimeKind.Utc);
         student.CreatedAt = DateTime.UtcNow;
-        student.IsActive = true; // Yeni eklenen
+        student.IsActive = true;
+        var user = new IdentityUser { UserName = student.Email, Email = student.Email };
+        await _userManager.CreateAsync(user, student.Password);
         await _context.Students.AddAsync(student);
         await _context.SaveChangesAsync();
     }
@@ -49,16 +57,17 @@ public class StudentService : IStudentService
         var student = await GetStudentByIdAsync(id);
         if (student != null)
         {
-            student.IsActive = false; // Silme işlemi sadece soft-delete olacak
+            student.IsActive = false;
             await _context.SaveChangesAsync();
         }
     }
+
     public async Task AssignCoursesToStudentAsync(int studentId, List<int> courseIds)
     {
         var existingCourseIds = _context.StudentCourses
             .Where(sc => sc.StudentsStudentId == studentId)
             .Select(sc => sc.CoursesCourseId)
-            .ToHashSet(); // Set olarak almak daha hızlı kontrol sağlar
+            .ToHashSet();
 
         foreach (var courseId in courseIds)
         {
@@ -71,9 +80,17 @@ public class StudentService : IStudentService
                 });
             }
         }
+
         await _context.SaveChangesAsync();
     }
 
+    public async Task<Student> MyCoursesAsync(string userEmail)
+    {
+        var student = await _context.Students
+            .Include(s => s.StudentCourses)
+            .ThenInclude(sc => sc.Course)
+            .FirstOrDefaultAsync(s => s.Email == userEmail);
 
-
+        return student;
+    }
 }
