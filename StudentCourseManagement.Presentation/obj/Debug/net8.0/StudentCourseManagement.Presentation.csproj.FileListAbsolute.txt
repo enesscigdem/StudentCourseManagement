@@ -386,3 +386,8 @@
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
 /Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/obj/Debug/net8.0/StudentCourseManagement.Presentation.sourcelink.json
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/bin/Debug/net8.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/bin/Debug/net8.0/Pipelines.Sockets.Unofficial.dll
+/Users/enescigdem/RiderProjects/StudentCourseManagement/StudentCourseManagement.Presentation/bin/Debug/net8.0/StackExchange.Redis.dll

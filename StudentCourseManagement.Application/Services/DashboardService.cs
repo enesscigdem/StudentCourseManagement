@@ -6,13 +6,15 @@ using StudentCourseManagement.Infrastructure.Data;
 
 public class DashboardService : IDashboardService
 {
+    private readonly ICacheService _cacheService;
     private readonly ApplicationDbContext _context;
     private readonly UserManager<IdentityUser> _userManager;
 
-    public DashboardService(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+    public DashboardService(ApplicationDbContext context, UserManager<IdentityUser> userManager, ICacheService cacheService)
     {
         _context = context;
         _userManager = userManager;
+        _cacheService = cacheService;
     }
 
     public async Task<DashboardViewModel> GetDashboardDataAsync()

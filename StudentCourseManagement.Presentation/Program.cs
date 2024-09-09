@@ -17,11 +17,20 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-//addsocpe ları ekle.
+// Redis'i ekleyin
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetSection("Redis:ConnectionString").Value;
+    options.InstanceName = "StudentCourseManagement_";
+});
+
+
+// Addscoped servisleri
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<ICacheService, CacheService>();
 
 var app = builder.Build();
 

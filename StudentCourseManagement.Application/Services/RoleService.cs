@@ -10,43 +10,55 @@ namespace StudentCourseManagement.Application.Services
 {
     public class RoleService : IRoleService
     {
+        private readonly ICacheService _cacheService;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public RoleService(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public RoleService(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, ICacheService cacheService)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _cacheService = cacheService;
         }
 
         public async Task<List<SettingsViewModel>> GetRolesAsync()
         {
+            var cacheKey = "roles_list";
+            try
+            {
+                var cachedRoles = await _cacheService.GetCacheAsync<List<SettingsViewModel>>(cacheKey);
+                if (cachedRoles != null)
+                {
+                    return cachedRoles;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Cache read failed: {ex.Message}");
+            }
+
             var roles = await _roleManager.Roles.ToListAsync();
             var roleViewModels = new List<SettingsViewModel>();
-
             foreach (var role in roles)
             {
-                var users = await _userManager.Users.ToListAsync();
-                var userCount = 0;
-
-                foreach (var user in users)
-                {
-                    if (await _userManager.IsInRoleAsync(user, role.Name))
-                    {
-                        userCount++;
-                    }
-                }
-
                 roleViewModels.Add(new SettingsViewModel
                 {
                     RoleId = role.Id,
                     RoleName = role.Name,
-                    UserCount = userCount
+                    UserCount = (await _userManager.GetUsersInRoleAsync(role.Name)).Count
                 });
             }
-
+            try
+            {
+                await _cacheService.SetCacheAsync(cacheKey, roleViewModels, TimeSpan.FromMinutes(15));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Cache write failed: {ex.Message}");
+            }
             return roleViewModels;
         }
+
 
 
         public async Task<CreateRoleViewModel> GetRoleByIdAsync(string roleId)

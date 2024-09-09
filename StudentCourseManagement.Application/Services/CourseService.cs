@@ -5,21 +5,72 @@ using StudentCourseManagement.Infrastructure.Data;
 
 public class CourseService : ICourseService
 {
+    private readonly ICacheService _cacheService;
     private readonly ApplicationDbContext _context;
 
-    public CourseService(ApplicationDbContext context)
+    public CourseService(ApplicationDbContext context, ICacheService cacheService)
     {
         _context = context;
+        _cacheService = cacheService;
     }
 
     public async Task<List<Course>> GetAllCoursesAsync()
     {
-        return await _context.Courses.ToListAsync();
+        var cacheKey = "courses_list";
+        try
+        {
+            var cachedCourses = await _cacheService.GetCacheAsync<List<Course>>(cacheKey);
+            if (cachedCourses != null)
+            {
+                return cachedCourses;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Cache read failed: {ex.Message}");
+        }
+
+        var courses = await _context.Courses.ToListAsync();
+        try
+        {
+            await _cacheService.SetCacheAsync(cacheKey, courses, TimeSpan.FromMinutes(10));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Cache write failed: {ex.Message}");
+        }
+
+        return courses;
     }
+
 
     public async Task<Course> GetCourseByIdAsync(int id)
     {
-        return await _context.Courses.Where(x => x.CourseId == id).FirstOrDefaultAsync();
+        var cacheKey = $"course_{id}";
+        try
+        {
+            var cachedCourse = await _cacheService.GetCacheAsync<Course>(cacheKey);
+            if (cachedCourse != null)
+            {
+                return cachedCourse;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Cache read failed: {ex.Message}");
+        }
+
+        var course = await _context.Courses.FirstOrDefaultAsync(x => x.CourseId == id);
+        try
+        {
+            await _cacheService.SetCacheAsync(cacheKey, course, TimeSpan.FromMinutes(10));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Cache write failed: {ex.Message}");
+        }
+
+        return course;
     }
 
     public async Task AddCourseAsync(Course course)
