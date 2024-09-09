@@ -37,6 +37,7 @@ namespace StudentCourseManagement.Presentation.Controllers
                 await _courseService.AddCourseAsync(course);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(course);
         }
 
@@ -47,6 +48,7 @@ namespace StudentCourseManagement.Presentation.Controllers
             {
                 return NotFound();
             }
+
             return View(course);
         }
 
@@ -64,6 +66,7 @@ namespace StudentCourseManagement.Presentation.Controllers
                 await _courseService.UpdateCourseAsync(course);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(course);
         }
 

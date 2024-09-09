@@ -126,8 +126,12 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .animate-fadeIn {
@@ -135,8 +139,14 @@ body {
 }
 
 @keyframes slideIn {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .animate-slideIn {
@@ -319,18 +329,19 @@ input:checked + .slider:before {
         display: none;
     }
 }
+
 @media (min-width: 1536px) {
     .container {
         max-width: unset;
     }
 }
 
- .switch {
-     position: relative;
-     display: inline-block;
-     width: 60px;
-     height: 34px;
- }
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
 
 .switch input {
     opacity: 0;

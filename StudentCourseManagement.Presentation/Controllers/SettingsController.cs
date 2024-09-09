@@ -36,6 +36,7 @@ namespace StudentCourseManagement.Presentation.Controllers
                 await _roleService.CreateRoleAsync(model);
                 return RedirectToAction("Index");
             }
+
             return View(model);
         }
 
@@ -64,6 +65,7 @@ namespace StudentCourseManagement.Presentation.Controllers
                 await _roleService.UpdateUsersInRoleAsync(model.RoleId, model.Users);
                 return RedirectToAction("Index");
             }
+
             return View(model);
         }
 

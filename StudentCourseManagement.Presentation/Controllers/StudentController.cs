@@ -37,6 +37,7 @@ namespace StudentCourseManagement.Presentation.Controllers
                 await _studentService.AddStudentAsync(student);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(student);
         }
 
@@ -47,6 +48,7 @@ namespace StudentCourseManagement.Presentation.Controllers
             {
                 return NotFound();
             }
+
             return View(student);
         }
 
@@ -59,6 +61,7 @@ namespace StudentCourseManagement.Presentation.Controllers
                 await _studentService.UpdateStudentAsync(student);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(student);
         }
 
@@ -67,6 +70,7 @@ namespace StudentCourseManagement.Presentation.Controllers
             await _studentService.DeleteStudentAsync(id);
             return RedirectToAction(nameof(Index));
         }
+
         public async Task<IActionResult> Details(int id)
         {
             var student = await _studentService.GetStudentByIdAsync(id);
@@ -74,11 +78,12 @@ namespace StudentCourseManagement.Presentation.Controllers
 
             return View(student);
         }
+
         public async Task<IActionResult> MyCourses()
         {
             var userEmail = User.Identity.Name;
             var student = await _studentService.MyCoursesAsync(userEmail);
-    
+
             if (student == null)
             {
                 return NotFound();
@@ -86,6 +91,5 @@ namespace StudentCourseManagement.Presentation.Controllers
 
             return RedirectToAction("Details", new { id = student.StudentId });
         }
-
     }
 }

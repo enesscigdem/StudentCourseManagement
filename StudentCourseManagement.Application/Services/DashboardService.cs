@@ -10,7 +10,8 @@ public class DashboardService : IDashboardService
     private readonly ApplicationDbContext _context;
     private readonly UserManager<IdentityUser> _userManager;
 
-    public DashboardService(ApplicationDbContext context, UserManager<IdentityUser> userManager, ICacheService cacheService)
+    public DashboardService(ApplicationDbContext context, UserManager<IdentityUser> userManager,
+        ICacheService cacheService)
     {
         _context = context;
         _userManager = userManager;

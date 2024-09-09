@@ -14,7 +14,8 @@ namespace StudentCourseManagement.Application.Services
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public RoleService(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, ICacheService cacheService)
+        public RoleService(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager,
+            ICacheService cacheService)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -48,6 +49,7 @@ namespace StudentCourseManagement.Application.Services
                     UserCount = (await _userManager.GetUsersInRoleAsync(role.Name)).Count
                 });
             }
+
             try
             {
                 await _cacheService.SetCacheAsync(cacheKey, roleViewModels, TimeSpan.FromMinutes(15));
@@ -56,9 +58,9 @@ namespace StudentCourseManagement.Application.Services
             {
                 Console.WriteLine($"Cache write failed: {ex.Message}");
             }
+
             return roleViewModels;
         }
-
 
 
         public async Task<CreateRoleViewModel> GetRoleByIdAsync(string roleId)
@@ -136,6 +138,5 @@ namespace StudentCourseManagement.Application.Services
                 }
             }
         }
-
     }
 }

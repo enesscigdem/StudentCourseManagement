@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const menuItems = document.querySelectorAll('.menu-item');
     const contentSections = document.querySelectorAll('[id$="Content"]');
     const pageTitle = document.getElementById('pageTitle');
@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const profileDropdown = document.getElementById('profileDropdown');
     const notificationBtn = document.getElementById('notificationBtn');
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const menuItems = document.querySelectorAll('.menu-item');
         const contentSections = document.querySelectorAll('[id$="Content"]');
         const pageTitle = document.getElementById('pageTitle');
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentSeries = randomChart.w.globals.series[0];
             if (currentSeries && currentSeries.data) {
                 const newData = currentSeries.data.map(() => Math.floor(Math.random() * 100) + 1);
-                randomChart.updateSeries([{ data: newData }]);
+                randomChart.updateSeries([{data: newData}]);
             } else {
                 console.error('currentSeries or currentSeries.data is undefined');
             }
@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
             allElements.forEach(element => {
                 if (element.textContent.toLowerCase().includes(searchTerm)) {
                     element.style.backgroundColor = 'rgba(66, 153, 225, 0.3)';
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    element.scrollIntoView({behavior: 'smooth', block: 'center'});
                 } else {
                     element.style.backgroundColor = '';
                 }

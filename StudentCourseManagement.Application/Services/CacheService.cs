@@ -22,6 +22,7 @@ public class CacheService : ICacheService
             {
                 return JsonSerializer.Deserialize<T>(cachedData);
             }
+
             return null;
         }
         catch (Exception ex)

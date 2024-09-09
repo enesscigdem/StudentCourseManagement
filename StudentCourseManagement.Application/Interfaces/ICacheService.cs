@@ -10,7 +10,4 @@ namespace StudentCourseManagement.Application.Interfaces
         Task SetCacheAsync<T>(string key, T data, TimeSpan expiration);
         Task RemoveCacheAsync(string key);
     }
-
-
 }
-

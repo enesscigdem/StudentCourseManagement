@@ -51,14 +51,12 @@ namespace StudentCourseManagement.Presentation.Controllers
                 model.AvailableCourses = availableCourses;
             model.Student = getStudent;
 
-            // Öğrenciyi ve dersleri al
             var student = await _studentService.GetStudentByIdAsync(model.Student.StudentId);
             if (student == null)
             {
                 return NotFound();
             }
 
-            // Dersleri atama işlemi
             await _studentService.AssignCoursesToStudentAsync(model.Student.StudentId, model.SelectedCourseIds);
 
             return RedirectToAction("Details", "Student", new { id = model.Student.StudentId });

@@ -12,7 +12,8 @@ namespace StudentCourseManagement.Presentation.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IStudentService _studentService;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IStudentService studentService)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
+            IStudentService studentService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -32,7 +33,7 @@ namespace StudentCourseManagement.Presentation.Controllers
             {
                 var user = new IdentityUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
-            
+
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
@@ -61,7 +62,8 @@ namespace StudentCourseManagement.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var result =
+                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {
@@ -71,7 +73,8 @@ namespace StudentCourseManagement.Presentation.Controllers
                     if (!roles.Any())
                     {
                         await _signInManager.SignOutAsync();
-                        ModelState.AddModelError(string.Empty, "Rolünüz tanımlanmamıştır. Lütfen admin ile iletişime geçin.");
+                        ModelState.AddModelError(string.Empty,
+                            "Rolünüz tanımlanmamıştır. Lütfen admin ile iletişime geçin.");
                         return View(model);
                     }
 
@@ -90,6 +93,7 @@ namespace StudentCourseManagement.Presentation.Controllers
 
             return View(model);
         }
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
