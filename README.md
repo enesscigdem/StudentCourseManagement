@@ -94,9 +94,4 @@
 - **Dashboard**: Admin ve yetkilendirilmiş kullanıcılar için sistem genel durumu hakkında bilgi sağlar.
 
 ## Seed Data
-
-Başlangıç verileri için:
-- E-posta: `admin@itb.com`
-- Şifre: `ITB2024!!`
-
 Bu kullanıcı, tüm admin işlevlerine erişim sağlar.
